@@ -23,6 +23,7 @@ module Krakow
             context = OpenSSL::SSL::SSLContext.new
             context.cert = OpenSSL::X509::Certificate.new(File.open(args[:ssl_context][:certificate]))
             context.key = OpenSSL::PKey::RSA.new(File.open(args[:ssl_context][:key]))
+            context.ca_file = ssl_context[:ca_certificate]
             ssl_socket_arguments << context
           end
           @_socket = OpenSSL::SSL::SSLSocket.new(*ssl_socket_arguments)
